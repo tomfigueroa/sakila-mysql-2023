@@ -19,6 +19,7 @@ with datos_tienda as(
         join address as ad using (address_id)
         join city as ci using(city_id)
         join country as co using(country_id)
+        
 ),
 datos_pagos as (
     select
