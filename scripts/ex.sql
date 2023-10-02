@@ -17,6 +17,18 @@ with datos_pagos as (
         YEAR(payment_date)
 ),
 
+datos_tiendas as (
+    select 
+    store.store_id,
+    CONCAT(district,', ', city) as store,
+    film_id,
+    inventory_id
+    from store
+    join inventory using (store_id)
+        join address on store.address_id = address.address_id
+        join city using (city_id) 
+),
+
 datos_alquiler as (
     select
         store.store_id,
@@ -25,6 +37,7 @@ datos_alquiler as (
         YEAR(rental_date) as anno,
         count(*) as qty
     from rental
+        join rental using (rental_id)
         join staff using (staff_id)
         join store using (store_id)
         join address on store.address_id = address.address_id
@@ -83,4 +96,6 @@ calculos as(
 
 select *
     from  calculos
+
+
     limit 40;
